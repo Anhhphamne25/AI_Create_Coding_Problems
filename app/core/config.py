@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     google_api_key: str = ""
-    google_api_model: str = "gemini-3-flash-preview"
+    google_api_model: str = "gemini-2.5-flash"
     loop_count: int = 1
 
     class Config:
