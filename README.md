@@ -1,49 +1,52 @@
 # AI Create Coding Problems
 
-Một hệ thống tạo đề bài lập trình tự động sử dụng AI (Google Generative AI), với quy trình phản biện tự động để đảm bảo chất lượng đề bài.
+An AI-powered system for automatically generating programming problems using Google Generative AI, with an automated critic workflow to ensure problem quality.
 
-## 🎯 Tính năng
+## 🎯 Features
 
-- **Tạo đề bài tự động**: Sử dụng Google Generative AI (Gemini) để sinh ra đề bài lập trình
-- **Quy trình phản biện**: AI tự động kiểm tra và phê duyệt đề bài
-- **Vòng lặp cải tiến**: Nếu đề bài chưa đạt yêu cầu, AI sẽ tự động chỉnh sửa
-- **API RESTful**: Cung cấp endpoint để tạo đề bài
-- **Hỗ trợ nhiều ngôn ngữ**: Có thể tạo đề bài cho Python, Java, C++, v.v.
+- **Automatic problem generation**: Uses Google Generative AI (Gemini) to generate programming problems
+- **Automated critic workflow**: AI reviews and approves generated problems
+- **Improvement loop**: If a problem does not meet the quality requirements, the AI automatically revises it
+- **RESTful API**: Provides an endpoint for generating programming problems
+- **Multi-language support**: Supports generating problems for Python, Java, C++, and more
+- **Difficulty evaluation**: Supports difficulty levels such as `easy`, `medium`, and `hard`
 
-## 📋 Yêu cầu
+## 📋 Requirements
 
 - Python 3.9+
-- Google API Key (Generative AI)
+- Google API Key for Generative AI
 - pip package manager
 
-## 🚀 Cài đặt
+## 🚀 Installation
 
-### 1. Clone repository
+### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
 cd AI_Create_Coding_Problems
 ```
 
-### 2. Tạo virtual environment
+### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
+
 # Windows
 venv\Scripts\activate
+
 # macOS/Linux
 source venv/bin/activate
 ```
 
-### 3. Cài đặt dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Cấu hình biến môi trường
+### 4. Configure environment variables
 
-Tạo file `.env` tại thư mục gốc:
+Create a `.env` file in the root directory:
 
 ```env
 GOOGLE_API_KEY=your-google-api-key-here
@@ -51,44 +54,44 @@ GOOGLE_API_MODEL=gemini-3-flash-preview
 LOOP_COUNT=2
 ```
 
-**Các biến:**
+**Environment variables:**
 
-- `GOOGLE_API_KEY`: Google Generative AI API key (bắt buộc)
-- `GOOGLE_API_MODEL`: Model Gemini sử dụng (mặc định: gemini-3-flash-preview)
-- `LOOP_COUNT`: Số lần tối đa vòng lặp generator-critic (mặc định: 1)
+- `GOOGLE_API_KEY`: Google Generative AI API key, required
+- `GOOGLE_API_MODEL`: Gemini model to use, default: `gemini-3-flash-preview`
+- `LOOP_COUNT`: Maximum number of generator-critic iterations, default: `1`
 
-## 📦 Cấu trúc dự án
+## 📦 Project Structure
 
-```
+```text
 AI_Create_Coding_Problems/
 ├── app/
 │   ├── main.py                 # FastAPI app entry point
 │   ├── core/
-│   │   └── config.py          # Cấu hình settings
+│   │   └── config.py           # Application settings
 │   ├── modules/
 │   │   ├── agents/
-│   │   │   └── agent.py       # Generator & Critic agents
+│   │   │   └── agent.py        # Generator and Critic agents
 │   │   ├── prompts/
 │   │   │   ├── generator_prompt.py
 │   │   │   └── critic_prompt.py
 │   │   ├── schemas/
-│   │   │   └── schema.py      # Pydantic models
-│   │   ├── services.py        # Business logic
-│   │   └── workflow.py        # LangGraph workflow
+│   │   │   └── schema.py       # Pydantic models
+│   │   ├── services.py         # Business logic
+│   │   └── workflow.py         # LangGraph workflow
 │   └── routes/
-│       └── create_problem.py  # API endpoints
+│       └── create_problem.py   # API endpoints
 ├── requirements.txt            # Python dependencies
-├── .env                       # Environment variables (chưa commit)
-└── README.md                  # Documentation
+├── .env                        # Environment variables, not committed
+└── README.md                   # Documentation
 ```
 
 ## 🔧 API Reference
 
-### Tạo đề bài
+### Create a Programming Problem
 
 **Endpoint:**
 
-```
+```http
 POST /api/create_problem
 ```
 
@@ -104,16 +107,16 @@ POST /api/create_problem
 
 **Parameters:**
 
-- `topic` (string): Chủ đề bài tập (vd: "array", "tree", "sorting")
-- `difficulty` (string): Độ khó - `easy`, `medium`, `hard` (mặc định: `easy`)
-- `language` (string): Ngôn ngữ lập trình (mặc định: `Python`)
+- `topic` string: The programming topic, for example: `array`, `tree`, `sorting`
+- `difficulty` string: Problem difficulty: `easy`, `medium`, or `hard`. Default: `easy`
+- `language` string: Programming language. Default: `Python`
 
-**Response (Success - 200):**
+**Response — Success 200:**
 
 ```json
 {
-  "title": "Tính tổng mảng",
-  "description": "Cho một mảng gồm n số nguyên. Hãy tính tổng các phần tử trong mảng.",
+  "title": "Calculate the Sum of an Array",
+  "description": "Given an array of n integers, calculate the sum of all elements in the array.",
   "examples": [
     {
       "input": "5\n1 2 3 4 5",
@@ -125,7 +128,7 @@ POST /api/create_problem
 }
 ```
 
-**Response (Error - 500):**
+**Response — Error 500:**
 
 ```json
 {
@@ -137,7 +140,7 @@ POST /api/create_problem
 
 **Endpoint:**
 
-```
+```http
 GET /health
 ```
 
@@ -153,7 +156,7 @@ GET /health
 
 **Endpoint:**
 
-```
+```http
 GET /
 ```
 
@@ -165,9 +168,9 @@ GET /
 }
 ```
 
-## 🤖 Luồng xử lý
+## 🤖 Workflow
 
-```
+```text
 Request (/api/create_problem)
     ↓
 [CreateProblemRequest parsing]
@@ -179,41 +182,45 @@ Request (/api/create_problem)
     │   └─→ GeneratorAgent.run(topic, difficulty, language)
     │       └─→ LLM generates ProgrammingProblem
     │
-    └─→ [Loop: max LOOP_COUNT times]
+    └─→ [Loop: up to LOOP_COUNT times]
         ├─→ [Critic Node]
         │   └─→ CriticAgent.run(problem)
         │       └─→ LLM returns CriticResponse
         │
         ├─→ [Check: is_approved?]
         │   ├─ YES → Return problem with status="approved"
-        │   └─ NO → Continue to Generator (revise)
+        │   └─ NO → Continue to Generator for revision
         │
-        └─→ [Generator Node - Revise]
+        └─→ [Generator Node - Revision]
             └─→ GeneratorAgent.run(refined_topic)
-                └─→ LLM generates improved ProgrammingProblem
+                └─→ LLM generates an improved ProgrammingProblem
     ↓
 [Return final ProgrammingProblem]
 ```
 
-## 🛠️ Chạy ứng dụng
+## 🛠️ Running the Application
 
-### Development mode
+### Development Mode
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Ứng dụng sẽ chạy tại: `http://localhost:8000`
+The application will run at:
 
-### Production mode
+```text
+http://localhost:8000
+```
+
+### Production Mode
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-## 📝 Ví dụ sử dụng
+## 📝 Usage Examples
 
-### Sử dụng curl
+### Using curl
 
 ```bash
 curl -X POST "http://localhost:8000/api/create_problem" \
@@ -225,7 +232,7 @@ curl -X POST "http://localhost:8000/api/create_problem" \
   }'
 ```
 
-### Sử dụng Python
+### Using Python
 
 ```python
 import requests
@@ -245,61 +252,65 @@ print(f"Description: {problem['description']}")
 print(f"Constraints: {problem['constraints']}")
 ```
 
-## 🔑 Các khái niệm chính
+## 🔑 Key Concepts
 
 ### GeneratorAgent
 
-- Sử dụng LangChain + Google Generative AI để sinh ra đề bài
-- Temperature = 0.7 (creative nhưng controlled)
-- Trả về object `ProgrammingProblem` đã structured
+- Uses LangChain and Google Generative AI to generate programming problems
+- Uses `temperature = 0.7` to balance creativity and control
+- Returns a structured `ProgrammingProblem` object
 
 ### CriticAgent
 
-- Đánh giá đề bài đã sinh ra
-- Temperature = 0 (deterministic)
-- Trả về `CriticResponse` với trạng thái approved và feedback
+- Reviews the generated programming problem
+- Uses `temperature = 0` for deterministic evaluation
+- Returns a `CriticResponse` containing approval status and feedback
 
 ### ProblemGenerationService
 
-- Quản lý vòng lặp generator-critic
-- Giới hạn số vòng theo `LOOP_COUNT`
-- Đánh dấu status `approved` hoặc `draft`
+- Manages the generator-critic loop
+- Limits the number of iterations based on `LOOP_COUNT`
+- Marks the final problem status as `approved` or `draft`
 
 ### LangGraph Workflow
 
-- Định nghĩa quy trình thông qua StateGraph
-- Điều hướng dựa trên kết quả critic (`is_approved`)
-- Hỗ trợ tự động retry với feedback
+- Defines the problem-generation process using `StateGraph`
+- Routes the flow based on the critic result, such as `is_approved`
+- Supports automatic retry and revision using critic feedback
 
 ## 📊 Model Response Format
 
 ```python
 class ProgrammingProblem:
-    title: str                    # Tên đề bài
-    description: str              # Mô tả chi tiết
-    examples: List[Example]       # Danh sách ví dụ input/output
-    constraints: List[str]        # Danh sách ràng buộc
-    note: str                     # Ghi chú bổ sung
+    title: str                    # Problem title
+    description: str              # Detailed problem description
+    examples: List[Example]       # List of input/output examples
+    constraints: List[str]        # List of constraints
+    note: str                     # Additional notes
 ```
 
 ## 🐛 Troubleshooting
 
-### "GOOGLE_API_KEY is not configured"
+### `GOOGLE_API_KEY is not configured`
 
-- Đảm bảo file `.env` tồn tại và có `GOOGLE_API_KEY`
-- Hoặc set environment variable: `export GOOGLE_API_KEY=your-key`
+- Make sure the `.env` file exists and contains `GOOGLE_API_KEY`
+- Or set the environment variable manually:
 
-### Model "gemini-3-flash-preview" not found
+```bash
+export GOOGLE_API_KEY=your-key
+```
 
-- Kiểm tra tên model hợp lệ từ Google AI Studio
-- Cập nhật `GOOGLE_API_MODEL` trong `.env`
+### Model `gemini-3-flash-preview` not found
 
-### LOOP_COUNT quá cao → chậm
+- Check the valid model name in Google AI Studio
+- Update `GOOGLE_API_MODEL` in the `.env` file
 
-- Giảm `LOOP_COUNT` trong `.env`
-- Hoặc tăng thời gian timeout của request
+### High `LOOP_COUNT` causes slow responses
 
-## 📚 Công nghệ sử dụng
+- Reduce `LOOP_COUNT` in the `.env` file
+- Or increase the request timeout
+
+## 📚 Tech Stack
 
 - **FastAPI**: Web framework
 - **Pydantic**: Data validation
@@ -308,15 +319,15 @@ class ProgrammingProblem:
 - **Google Generative AI**: LLM provider
 - **Uvicorn**: ASGI server
 
-## 🤝 Đóng góp
+## 🤝 Contributing
 
-Vui lòng tạo issue hoặc pull request để cải thiện dự án.
+Please open an issue or submit a pull request to improve this project.
 
-## 📄 Giấy phép
+## 📄 License
 
 MIT License
 
 ---
 
-**Tác giả:** AI Development Team
-**Phiên bản:** 1.0.0
+**Author:** AI Development Team
+**Version:** 1.0.0
