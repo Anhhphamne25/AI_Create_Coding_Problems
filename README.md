@@ -9,7 +9,6 @@ Một hệ thống tạo đề bài lập trình tự động sử dụng AI (Go
 - **Vòng lặp cải tiến**: Nếu đề bài chưa đạt yêu cầu, AI sẽ tự động chỉnh sửa
 - **API RESTful**: Cung cấp endpoint để tạo đề bài
 - **Hỗ trợ nhiều ngôn ngữ**: Có thể tạo đề bài cho Python, Java, C++, v.v.
-- **Đánh giá độ khó**: Tự động đánh giá độ khó (easy, medium, hard)
 
 ## 📋 Yêu cầu
 
